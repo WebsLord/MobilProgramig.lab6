@@ -1,45 +1,52 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+// 1. TouchableOpacity ve Alert'i 'react-native'den import et
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
-// 1. Bileşen, dışarıdan 3 adet 'prop' alacak: name, role, ve imageSource
+// Prop'lar aynı kalıyor: name, role, imageSource
 function ProfileCard({ name, role, imageSource }) {
+  
+  // 2. "handlePress" adında bir fonksiyon oluştur
+  // Bu fonksiyon, o karttaki "name" prop'unu kullanarak bir uyarı gösterecek
+  const handlePress = () => {
+    Alert.alert(`You tapped on ${name}’s profile.`);
+  };
+
   return (
-    // 2. Ana kart görünümü (stil={styles.card})
-    <View style={styles.card}>
-      {/* 3. Avatar resmi (stil={styles.avatar}) */}
+    // 3. Dıştaki <View> bileşenini <TouchableOpacity> ile değiştir.
+    //    Stilini (styles.card) ve onPress olayını buna aktar.
+    <TouchableOpacity style={styles.card} onPress={handlePress}>
+      {/* İçerideki yapı (Image, Text, Text) değişmiyor.
+        Dış sarmalayıcı <View> olduğu için onu <TouchableOpacity> 
+        olarak değiştirmemiz yeterli. 
+        Eğer <View> içinde sarmalasaydık, gölge düzgün çalışmayabilirdi.
+      */}
       <Image source={imageSource} style={styles.avatar} />
-      
-      {/* 4. İsim (stil={styles.name}) */}
       <Text style={styles.name}>{name}</Text>
-      
-      {/* 5. Rol (stil={styles.role}) */}
       <Text style={styles.role}>{role}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
-// 6. StyleSheet API'si ile tüm stilleri tanımlıyoruz
+// Stillerde herhangi bir değişiklik yok
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    borderRadius: 16, // Kenarları yumuşatma
+    borderRadius: 16,
     padding: 24,
-    marginVertical: 10, // Kartlar arası dikey boşluk
-    alignItems: 'center', // İçeriği yatayda ortala
+    marginVertical: 10,
+    alignItems: 'center',
     
-    // Platforma özel gölge (Task 4)
-    // iOS için gölge
+    // Gölge stilleri
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    // Android için gölge
     elevation: 3,
   },
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50, // Resmi daire yapmak için (genişliğin/yüksekliğin yarısı)
+    borderRadius: 50,
     marginBottom: 16,
   },
   name: {
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
   },
   role: {
     fontSize: 16,
-    color: '#666', // Gri renk
+    color: '#666',
   },
 });
 

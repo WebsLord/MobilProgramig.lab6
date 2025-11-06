@@ -22,8 +22,8 @@ export default function App() {
             imageSource={require('./assets/ada.png')}
           />
           <ProfileCard
-            name="The RECEP"
-            role="GIVE ME THE MUSİC"
+            name="THE RECEP"
+            role="GIVE ME THE MUSIC"
             imageSource={require('./assets/grace.png')}
           />
           <ProfileCard
